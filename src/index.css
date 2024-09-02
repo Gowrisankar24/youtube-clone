@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.side-scroll::-webkit-scrollbar {
+    @apply w-5;
+}
+.side-scroll::-webkit-scrollbar-thumb {
+    @apply bg-transparent rounded-lg;
+}
+.side-scroll::-webkit-scrollbar-thumb:hover {
+    @apply !bg-[#e80707] rounded-lg;
+}
+.side-scroll::-webkit-scrollbar-track {
+    @apply bg-transparent;
+}
