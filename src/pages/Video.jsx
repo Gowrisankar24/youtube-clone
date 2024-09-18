@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDoc, collection, doc, onSnapshot, query } from 'firebase/firestore';
 import { auth, db, timestamp } from '../Firebase';
@@ -12,24 +12,31 @@ import { MdOutlineSort } from 'react-icons/md';
 import { getUser, setUser } from '../Reducer/reducer';
 import { onAuthStateChanged } from 'firebase/auth';
 import { CommentList } from '../components/CommentList';
+import { CategoryItems } from '../components/sidebar/Data';
+import { Recommended } from '../components/Recommended';
 
 export const Video = () => {
     const dispatch = useDispatch();
-    // const [videos, setVideos] = useState([]);
+    const [videos, setVideos] = useState([]);
+    const [activeCategory, setActiveCategory] = useState(false);
+    const [commentsList, setCommentsList] = useState([]);
     const [Comment, setComment] = useState([]);
     const [data, setData] = useState(null);
     const { id } = useParams();
     const user = useSelector(getUser);
-    console.log('user', Comment);
+
+    //id(video) router data
     useEffect(() => {
         if (id) {
             const q = query(doc(db, 'videos', id));
             onSnapshot(q, snapShot => {
                 setData(snapShot.data());
             });
-            const getCommentsQuery = query(doc(db, 'videos', id, 'comments'));
+            const getCommentsQuery = query(
+                collection(db, 'videos', id, 'comments')
+            );
             onSnapshot(getCommentsQuery, snapShot => {
-                setComment(
+                setCommentsList(
                     snapShot?.docs?.map(doc => ({
                         ...doc?.data(),
                         id: doc?.id,
@@ -38,6 +45,8 @@ export const Video = () => {
             });
         }
     }, [id]);
+
+    //auth preserve
     useEffect(() => {
         onAuthStateChanged(auth, user => {
             if (user) {
@@ -47,7 +56,19 @@ export const Video = () => {
             }
         });
     }, [dispatch]);
-
+    //get videos
+    useEffect(() => {
+        const getresp = query(collection(db, 'videos'));
+        onSnapshot(getresp, snapShot => {
+            setVideos(
+                snapShot.docs.map(d => ({
+                    ...d.data(),
+                    id: d.id,
+                }))
+            );
+        });
+    }, [dispatch]);
+    //add comment
     const appendComment = async e => {
         e?.preventDefault();
         let commentData = {
@@ -56,21 +77,29 @@ export const Video = () => {
             Comment,
             uploaded: timestamp,
         };
+        console.log('console', commentData);
         if (id) {
             await addDoc(collection(db, 'videos', id, 'comments'), commentData);
             setComment('');
         }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    //cancel comment
+    const handleCancel = e => {
+        e?.preventDefault();
+        setComment('');
     };
     return (
         <div className='py-20 px-10 bg-yt-black flex flex-row h-full'>
             <div className='left flex-1'>
                 <div className='flex justify-center'>
                     <iframe
-                        src={`https://www.youtube.com/embed/${data?.link}`}
+                        src={`https://www.youtube.com/embed/${data?.link}?autoplay=1&mute=0&cc_load_policy=0`}
                         title='YouTube video player'
+                        controls
                         allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
                         allowFullScreen
-                        className='w-[40%] h-[600px] flex-1'
+                        className='w-[850px] h-[700px] flex-1 rounded-lg'
                     />
                 </div>
                 <h2 className='text-yt-white font-semibold mt-3 mb-1 text-lg'>
@@ -144,34 +173,80 @@ export const Video = () => {
                 </div>
                 <div className='text-yt-white mt-5'>
                     <div className='flex items-center'>
-                        <h1>{Comment?.length} Comments</h1>
+                        <h1>{commentsList?.length} Comments</h1>
                         <div className='flex items-center mx-10'>
                             <MdOutlineSort size={30} className='mx-3' />
                             <h5>Sort By</h5>
                         </div>
                     </div>
                     {user && (
-                        <form
-                            onSubmit={appendComment}
-                            className='flex w-[800px] pt-4 items-start'>
-                            <img
-                                src={user?.photoURL}
-                                alt='Profile'
-                                className='rounded-full mr-3 h-12 w-12'
-                            />
-                            <input
-                                value={Comment}
-                                onChange={e => setComment(e?.target?.value)}
-                                placeholder='Add a comment...'
-                                className='bg-transparent border-b border-b-yt-lightblack outline-none text-sm p-1 w-full'
-                            />
-                        </form>
+                        <>
+                            <form className='flex w-[800px] pt-4 items-start'>
+                                <img
+                                    src={user?.photoURL}
+                                    alt='Profile'
+                                    className='rounded-full mr-3 h-12 w-12'
+                                />
+                                <input
+                                    value={Comment}
+                                    onChange={e => setComment(e?.target?.value)}
+                                    placeholder='Add a comment...'
+                                    className='bg-transparent border-b border-b-yt-lightblack outline-none text-sm p-1 w-full'
+                                />
+                                <div className='flex flex-row gap-x-3 justify-end'>
+                                    <button
+                                        className='flex items-center h-10 mx-1 p-3 hover:bg-yt-lightblack hover:rounded-2xl'
+                                        onClick={handleCancel}>
+                                        Cancel
+                                    </button>
+                                    <button
+                                        disabled={Comment?.length === 0}
+                                        onClick={appendComment}
+                                        className='bg-blue-400 text-yt-white px-2 rounded-2xl'>
+                                        Comment
+                                    </button>
+                                </div>
+                            </form>
+                        </>
                     )}
                     <div className='mt-4'>
-                        {Comment?.map((item, i) => (
-                            <CommentList key={i} {...item} />
-                        ))}
+                        {commentsList?.map((item, i) => {
+                            return <CommentList key={i} {...item} />;
+                        })}
                     </div>
+                </div>
+            </div>
+            <div className='rigtht px-3 overflow-y-hidden flex-[0.4]'>
+                <div>
+                    <div className='flex flex-row px-3 overflow-x-scroll relative side-scroll'>
+                        {CategoryItems?.map((item, index) => {
+                            return (
+                                <h2
+                                    className={`text-yt-white font-medium text-sm px-3 py-1 break-keep whitespace-nowrap my-3 mr-3 bg-yt-lightblack cursor-pointer rounded-lg hover:bg-yt-gray ${
+                                        item === activeCategory
+                                            ? 'bg-yt-white !text-yt-black transition'
+                                            : 'bg-yt-lightblack text-yt-white'
+                                    }`}
+                                    key={index}
+                                    onClick={() => setActiveCategory(item)}>
+                                    {item}
+                                </h2>
+                            );
+                        })}
+                    </div>
+                </div>
+                <div className='pt-1'>
+                    {videos?.map((video, i) => {
+                        if (video?.id !== id) {
+                            return (
+                                <Link key={i} to={`/videos/${video?.id}`}>
+                                    <Recommended {...video} />
+                                </Link>
+                            );
+                        } else {
+                            return null;
+                        }
+                    })}
                 </div>
             </div>
         </div>

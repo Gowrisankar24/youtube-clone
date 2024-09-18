@@ -28,7 +28,9 @@ export const NavBar = () => {
         <div
             className={`bg-yt-black h-14 flex items-center pl-5 pr-5 justify-between fixed w-full z-10`}>
             <div className='flex justify-between items-center'>
-                <div className='text-yt-white p-2 w-25  text-2xl text-center hover:bg-yt-lightblack rounded-full cursor-pointer'>
+                <div
+                    className='text-yt-white p-2 w-25  text-2xl text-center hover:bg-yt-lightblack rounded-full cursor-pointer'
+                    onClick={() => {}}>
                     <HiMenu size={25} />
                 </div>
                 <div className='pr-5 pl-4 py-5 w-28'>

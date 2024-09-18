@@ -8,7 +8,7 @@ export const Sidebar = () => {
         <>
             <div className='side-scroll scrollbar-hide w-64 bg-yt-black h-[95vh] mt-14 fixed top-0 left-0 text-yt-white p-3 overflow-y-scroll'>
                 <div className='mb-4'>
-                    {SideBarItems?.Top.map((i, index) => {
+                    {SideBarItems?.Top?.map((i, index) => {
                         return (
                             <div
                                 key={index}

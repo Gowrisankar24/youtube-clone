@@ -19,8 +19,19 @@ body {
     @apply bg-transparent rounded-lg;
 }
 .side-scroll::-webkit-scrollbar-thumb:hover {
-    @apply !bg-[#e80707] rounded-lg;
+    @apply !bg-transparent rounded-lg;
 }
 .side-scroll::-webkit-scrollbar-track {
     @apply bg-transparent;
+}
+
+button:disabled {
+    @apply cursor-not-allowed bg-[#a8a7a75c] opacity-70;
+}
+
+body::-webkit-scrollbar-thumb {
+    @apply !bg-transparent;
+}
+body ::-webkit-scrollbar-track {
+    @apply !bg-transparent;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { MdVerified } from 'react-icons/md';
-import { VscDebugStackframeDot } from 'react-icons/vsc';
+// import { LuDot } from 'react-icons/lu';
 
 export const VideosInfo = ({
     id,
@@ -43,11 +43,12 @@ export const VideosInfo = ({
                             </span>
                         </h3>
                         <p className=' m-0 text-yt-gray font-medium text-xs flex'>
-                            {views} views
+                            {/* {views} views
                             <span className='ml-1 flex'>
-                                {/* <VscDebugStackframeDot /> */}
+                                <LuDot />
                                 {uploadTime}
-                            </span>
+                            </span> */}
+                            {views} Views • {uploadTime}
                         </p>
                     </div>
                 </div>

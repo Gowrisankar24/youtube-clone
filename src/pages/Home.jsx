@@ -36,8 +36,10 @@ export const Home = () => {
     }, [dispatch]);
     return (
         <>
-            <Sidebar />
-            <div className='w-(calc(100% - 250px)) h-calc(100%-50px) pt-16 bg-yt-black ml-60'>
+            <div>
+                <Sidebar />
+            </div>
+            <div className='w-(calc(100% - 250px)) h-calc(100% - 50px) pt-16 bg-yt-black ml-60'>
                 <div className='flex flex-row px-3 relative overflow-x-scroll scrollbar-hide'>
                     {CategoryItems?.map((item, index) => {
                         return (
