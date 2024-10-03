@@ -17,11 +17,11 @@ export const Shorts = () => {
         }
     }, [shortsId]);
 
-    console.log('shortsData', shortsId);
+    console.log('shortsData', shortsId, shortsData);
     return (
-        <div className='bg-yt-black flex h-full'>
-            <div className='flex justify-center'>
-                <span className='!text-yt-black'> Hello</span>
+        <div className="bg-yt-black flex h-full">
+            <div className="flex justify-center">
+                <span className="!text-yt-black"> Hello</span>
             </div>
         </div>
     );

@@ -30,7 +30,9 @@ body {
 .side-scroll::-webkit-scrollbar-track {
     @apply !bg-transparent;
 }
-
+.MuiDrawer-root {
+    @apply !overflow-x-hidden;
+}
 button:disabled {
     @apply cursor-not-allowed bg-[#a8a7a75c] opacity-70;
 }

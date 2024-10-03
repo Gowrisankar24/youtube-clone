@@ -1,9 +1,5 @@
-import {
-    MdOutlineHome,
-    MdShop,
-    MdOutlineLocalFireDepartment,
-    MdLocalMovies,
-} from 'react-icons/md';
+import React from 'react';
+import { MdOutlineHome, MdShop, MdOutlineLocalFireDepartment, MdLocalMovies } from 'react-icons/md';
 import { SiYoutubemusic, SiYoutubegaming } from 'react-icons/si';
 import { VscHistory } from 'react-icons/vsc';
 import { CiRedo } from 'react-icons/ci';

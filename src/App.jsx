@@ -11,9 +11,9 @@ export default function App() {
             <BrowserRouter>
                 <NavBar />
                 <Routes>
-                    <Route path='/' element={<Home />} />
-                    <Route path='/videos/:id' element={<Video />} />
-                    <Route path='/shorts/:shortsId' element={<Shorts />} />
+                    <Route path="/" name="Home" element={<Home />} />
+                    <Route path="/videos/:id" name="Videos" element={<Video />} />
+                    <Route path="/shorts" name="Shorts" element={<Shorts />} />
                 </Routes>
             </BrowserRouter>
         </>
