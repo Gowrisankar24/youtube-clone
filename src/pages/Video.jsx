@@ -77,7 +77,6 @@ export const Video = () => {
             Comment,
             uploaded: timestamp,
         };
-        console.log('console', commentData);
         if (id) {
             await addDoc(collection(db, 'videos', id, 'comments'), commentData);
             setComment('');
@@ -219,7 +218,7 @@ export const Video = () => {
             </div>
             <div className='rigtht px-3 overflow-y-hidden flex-[0.4]'>
                 <div>
-                    <div className='flex flex-row px-3 overflow-x-scroll relative side-scroll'>
+                    <div className='flex flex-row px-3 overflow-x-scroll relative side-scroll scrollbar-hide'>
                         {CategoryItems?.map((item, index) => {
                             return (
                                 <h2
