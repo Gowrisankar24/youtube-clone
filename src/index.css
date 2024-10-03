@@ -3,26 +3,32 @@
 @tailwind utilities;
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+    @apply p-0 m-0 box-border;
 }
 
 body {
-    overflow-x: hidden;
+    @apply overflow-x-hidden;
 }
-
-.side-scroll::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
+    @apply w-4;
+} */
+/* body::-webkit-scrollbar-track {
+    @apply !bg-black rounded-lg;
+} */
+/* body::-webkit-scrollbar-thumb {
+    background-color: #ff0000;
+}  */
+.side-scroll ::-webkit-scrollbar {
     @apply w-5;
 }
 .side-scroll::-webkit-scrollbar-thumb {
-    @apply bg-transparent rounded-lg;
+    @apply !bg-transparent rounded-lg;
 }
 .side-scroll::-webkit-scrollbar-thumb:hover {
     @apply !bg-transparent rounded-lg;
 }
 .side-scroll::-webkit-scrollbar-track {
-    @apply bg-transparent;
+    @apply !bg-transparent;
 }
 
 button:disabled {

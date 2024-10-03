@@ -1,4 +1,5 @@
-import React from 'react';
+import { Skeleton } from '@mui/material';
+import React, { useState } from 'react';
 import { MdVerified } from 'react-icons/md';
 // import { LuDot } from 'react-icons/lu';
 
@@ -15,14 +16,33 @@ export const VideosInfo = ({
     thumbnail,
     views,
 }) => {
+    const [imgLoader, setImgLoader] = useState(true);
+    const handleLoad = () => {
+        setTimeout(() => {
+            setImgLoader(false);
+        }, 5000);
+    };
     return (
         <>
             <div className='flex flex-col max-w-[260px] cursor-pointer'>
                 <div className='relative w-full'>
+                    {imgLoader && (
+                        <Skeleton
+                            // sx={{ bgcolor: 'grey.900' }}
+                            variant='rounded'
+                            width={265}
+                            height={150}
+                            animation='wave'
+                            className='!bg-[#353535] rounded-2xl'
+                        />
+                    )}
                     <img
                         src={thumbnail}
                         alt=''
-                        className='h-full w-full overflow-hidden rounded-2xl'
+                        className={`h-full w-full overflow-hidden rounded-2xl ${
+                            imgLoader ? 'hidden' : ''
+                        }`}
+                        onLoad={handleLoad}
                     />
                     <p className='absolute right-2 top-[85%] px-1 text-xs bg-yt-black text-yt-white rounded'>
                         {duration}

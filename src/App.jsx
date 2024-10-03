@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { NavBar } from './components/NavBar';
 import { Home } from './pages/Home';
 import { Video } from './pages/Video';
+import { Shorts } from './pages/Shorts';
 
 export default function App() {
     return (
@@ -12,6 +13,7 @@ export default function App() {
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/videos/:id' element={<Video />} />
+                    <Route path='/shorts/:shortsId' element={<Shorts />} />
                 </Routes>
             </BrowserRouter>
         </>

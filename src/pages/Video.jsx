@@ -89,6 +89,7 @@ export const Video = () => {
         e?.preventDefault();
         setComment('');
     };
+
     return (
         <div className='py-20 px-10 bg-yt-black flex flex-row h-full'>
             <div className='left flex-1'>
@@ -99,7 +100,7 @@ export const Video = () => {
                         controls
                         allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
                         allowFullScreen
-                        className='w-[850px] h-[700px] flex-1 rounded-lg'
+                        className='w-[850px] h-[550px] flex-1 rounded-xl'
                     />
                 </div>
                 <h2 className='text-yt-white font-semibold mt-3 mb-1 text-lg'>

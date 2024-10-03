@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import { SideBarItems } from './Data';
 import { HiMenu } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../../assests/yt-logo.png';
 
 export const Sidebar = ({ setDrawerOpen }) => {
-    const [active, setActive] = useState('Home');
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [active, setActive] = useState(location?.state?.key || 'Home');
+    const handleClick = value => {
+        setActive(value?.name);
+        navigate(value?.link, { state: { key: value?.name } });
+    };
     return (
         <>
             <div className='bg-yt-black flex justify-between items-center !cursor-pointer'>
@@ -16,13 +22,17 @@ export const Sidebar = ({ setDrawerOpen }) => {
                     }}>
                     <HiMenu size={25} />
                 </div>
-                <div className='pr-5 pl-4 py-5 w-28'>
+                <div
+                    className='pr-5 pl-4 py-5 w-28'
+                    onClick={() => {
+                        setDrawerOpen(false);
+                    }}>
                     <Link to='/'>
                         <img src={logo} alt='' className='object-contain' />
                     </Link>
                 </div>
             </div>
-            <div className='side-scroll scrollbar-hide w-64 bg-yt-black h-[95vh] mt-14 fixed top-0 left-0 text-yt-white p-3 overflow-y-scroll'>
+            <div className='side-scroll scrollbar-hide w-64 bg-yt-black h-[95vh] mt-14 fixed top-0 left-0 text-yt-white p-3 overflow-y-scroll overflow-x-hidden'>
                 <div className='mb-4'>
                     {SideBarItems?.Top?.map((i, index) => {
                         return (
@@ -33,7 +43,7 @@ export const Sidebar = ({ setDrawerOpen }) => {
                                         ? 'bg-yt-lightblack'
                                         : 'bg-yt-black'
                                 }`}
-                                onClick={() => setActive(i.name)}>
+                                onClick={() => handleClick(i)}>
                                 <span className='mr-5'>{i.icon}</span>
                                 <span className='p-2 text-sm font-medium'>
                                     {i.name}{' '}
@@ -53,7 +63,7 @@ export const Sidebar = ({ setDrawerOpen }) => {
                                         ? 'bg-yt-lightblack'
                                         : 'bg-yt-black'
                                 }`}
-                                onClick={() => setActive(i.name)}>
+                                onClick={() => handleClick(i)}>
                                 <span className='mr-5'>{i.icon}</span>
                                 <span className='p-2 text-sm font-medium'>
                                     {i.name}{' '}
@@ -74,7 +84,7 @@ export const Sidebar = ({ setDrawerOpen }) => {
                                         ? 'bg-yt-lightblack'
                                         : 'bg-yt-black'
                                 }`}
-                                onClick={() => setActive(i.name)}>
+                                onClick={() => handleClick(i)}>
                                 <span className='mr-5'>{i.icon}</span>
                                 <span className='p-2 text-sm font-medium'>
                                     {i.name}{' '}
