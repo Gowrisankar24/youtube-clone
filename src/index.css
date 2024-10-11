@@ -43,3 +43,6 @@ body::-webkit-scrollbar-thumb {
 body ::-webkit-scrollbar-track {
     @apply !bg-transparent;
 }
+.dashboard-height {
+    @apply h-[100%];
+}

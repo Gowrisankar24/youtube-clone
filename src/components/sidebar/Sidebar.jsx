@@ -1,17 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SideBarItems } from './Data';
 import { HiMenu } from 'react-icons/hi';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import logo from '../../assests/yt-logo.png';
+import { collection, onSnapshot, query } from 'firebase/firestore';
+import { db } from '../../Firebase';
 
 export const Sidebar = ({ setDrawerOpen }) => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { shortsId } = useParams();
     const [active, setActive] = useState(location?.state?.key || 'Home');
+    const [shortsInitialData, setShortsInitialData] = useState([]);
+    useEffect(() => {
+        const getQuery = query(collection(db, 'shorts'));
+        onSnapshot(getQuery, snapShot => {
+            setShortsInitialData(
+                snapShot?.docs?.map(d => ({
+                    ...d?.data(),
+                    id: d?.id,
+                }))
+            );
+        });
+    }, []);
     const handleClick = value => {
+        if (value?.name == 'Shorts') {
+            navigate(`${value?.link}/${shortsInitialData[0]?.id}`, { state: { key: value?.name } });
+            setDrawerOpen(false);
+        } else {
+            navigate(value?.link, { state: { key: value?.name } });
+        }
         setActive(value?.name);
-        navigate(value?.link, { state: { key: value?.name } });
     };
+
     return (
         <>
             <div className="bg-yt-black flex justify-between items-center !cursor-pointer">

@@ -35,7 +35,7 @@ export const Home = () => {
     }, [dispatch]);
     return (
         <>
-            <div className="w-full min-w-full max-w-full h-calc(100% - 50px) pt-16 bg-yt-black">
+            <div className="w-full min-w-full max-w-full dashboard-height pt-16 bg-yt-black">
                 <div className="flex flex-row px-5 relative overflow-x-scroll scrollbar-hide">
                     {CategoryItems?.map((item, index) => {
                         return (
