@@ -20,10 +20,10 @@ body {
 } */
 @layer utilities {
     ::-webkit-scrollbar {
-        @apply w-4;
+        @apply w-3;
     }
     ::-webkit-scrollbar-thumb {
-        @apply !bg-[#aeb3bd] rounded-xl;
+        @apply !bg-[#717171] rounded-xl;
     }
     ::-webkit-scrollbar-track {
         @apply !bg-yt-black;
@@ -35,7 +35,7 @@ body {
         @apply !invisible;
     }
     .sidebar .sidebar-scroll:hover::-webkit-scrollbar-thumb {
-        @apply !visible !bg-gray-200 rounded-xl;
+        @apply !visible !bg-[#717171] rounded-xl;
     }
     .sidebar .sidebar-scroll::-webkit-scrollbar-track {
         @apply !bg-transparent;
