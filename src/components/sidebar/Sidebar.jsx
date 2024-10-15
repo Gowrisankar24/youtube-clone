@@ -53,7 +53,7 @@ export const Sidebar = ({ setDrawerOpen }) => {
                     </Link>
                 </div>
             </div>
-            <div className="side-scroll scrollbar-hide w-64 bg-yt-black h-[95vh] mt-14 fixed top-0 left-0 text-yt-white p-3 overflow-y-scroll overflow-x-hidden">
+            <div className="sidebar-scroll w-64 bg-yt-black h-[95vh] mt-14 fixed top-0 left-0 text-yt-white p-3 overflow-y-scroll overflow-x-hidden">
                 <div className="mb-4">
                     {SideBarItems?.Top?.map((i, index) => {
                         return (

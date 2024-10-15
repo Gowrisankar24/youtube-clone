@@ -52,6 +52,7 @@ export const Shorts = () => {
     if (!currentShort) {
         return <Skeleton animation="wave" width={120} height="90%" />;
     }
+    console.log('currentIndex', currentIndex);
     return (
         <div className="w-full min-w-full max-w-full bg-yt-black">
             <div className="pt-16">
@@ -62,7 +63,6 @@ export const Shorts = () => {
                         src={`https://www.youtube.com/embed/${currentShort.link}?autoplay=1&mute=0&cc_load_policy=3&loop=1&type=channel&modestbranding=1&rel=0&enablejsapi=1`}
                         title={currentShort?.name}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        sandbox="allow-scripts allow-same-origin"
                         allowFullScreen
                         id="player"
                     />
@@ -101,16 +101,17 @@ export const Shorts = () => {
                         </div>
                     </div>
                 </div>
-                <div className="fixed right-5 top-[50%]">
+                <div className="fixed right-5 top-[40%]">
                     <div
-                        className="bg-yt-lightblack p-3 rounded-3xl cursor-pointer hover:bg-gray-400 my-2"
+                        className={`bg-yt-lightblack p-3 rounded-3xl cursor-pointer transition-opacity duration-500 ease-in-out hover:bg-gray-400 ${currentIndex > 1 ? 'visible opacity-100 translate-y-0' : 'opacity-0 invisible translate-y-[90px]'}`}
                         onClick={() => {
                             navigate(`/shorts/${shortsData[currentIndex - 1]?.id}`);
                         }}>
                         <FaArrowUp size={20} color="white" />
                     </div>
+
                     <div
-                        className="bg-yt-lightblack p-3 rounded-3xl cursor-pointer hover:bg-gray-400"
+                        className="bg-yt-lightblack p-3 rounded-3xl cursor-pointer mt-2 hover:bg-gray-400"
                         onClick={() => {
                             navigate(`/shorts/${shortsData[currentIndex + 1]?.id}`);
                         }}>

@@ -15,9 +15,32 @@ body {
 /* body::-webkit-scrollbar-track {
     @apply !bg-black rounded-lg;
 } */
-/* body::-webkit-scrollbar-thumb {
-    background-color: #ff0000;
-}  */
+/* body::-webkit-scrollbar-track {
+    @apply !bg-red-600;
+} */
+@layer utilities {
+    ::-webkit-scrollbar {
+        @apply w-4;
+    }
+    ::-webkit-scrollbar-thumb {
+        @apply !bg-[#aeb3bd] rounded-xl;
+    }
+    ::-webkit-scrollbar-track {
+        @apply !bg-yt-black;
+    }
+    .sidebar .sidebar-scroll::-webkit-scrollbar {
+        @apply w-3;
+    }
+    .sidebar .sidebar-scroll::-webkit-scrollbar-thumb {
+        @apply !invisible;
+    }
+    .sidebar .sidebar-scroll:hover::-webkit-scrollbar-thumb {
+        @apply !visible !bg-gray-200 rounded-xl;
+    }
+    .sidebar .sidebar-scroll::-webkit-scrollbar-track {
+        @apply !bg-transparent;
+    }
+}
 .side-scroll ::-webkit-scrollbar {
     @apply w-5;
 }
@@ -37,12 +60,24 @@ button:disabled {
     @apply cursor-not-allowed bg-[#a8a7a75c] opacity-70;
 }
 
-body::-webkit-scrollbar-thumb {
+/* body::-webkit-scrollbar-thumb {
     @apply !bg-transparent;
 }
 body ::-webkit-scrollbar-track {
     @apply !bg-transparent;
-}
+} */
 .dashboard-height {
     @apply h-[100%];
+}
+.backward-shorts {
+    @apply duration-[6000ms] delay-150 ease-in-out;
+}
+.MuiDrawer-paper {
+    @apply !overflow-hidden;
+}
+.MuiDrawer-paper::-webkit-scrollbar-track {
+    @apply !overflow-hidden;
+}
+.sidebar-scroll {
+    @apply !overflow-y-auto;
 }

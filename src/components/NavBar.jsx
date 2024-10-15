@@ -95,7 +95,7 @@ export const NavBar = () => {
                     </div>
                 </div>
             </div>
-            <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+            <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} className="sidebar">
                 <Sidebar setDrawerOpen={setDrawerOpen} />
             </Drawer>
         </>

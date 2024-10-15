@@ -18,6 +18,25 @@ module.exports = {
             gridTemplateColumns: {
                 yt: 'repeat(auto-fit, minmax(250px,1fr))',
             },
+            keyframes: {
+                'inside-out': {
+                    '0%': {
+                        transform: 'scale(0)',
+                        opacity: '0',
+                    },
+                    '50%': {
+                        transform: 'scale(0.5)',
+                        opacity: '0.5',
+                    },
+                    '100%': {
+                        transform: 'scale(1)',
+                        opacity: '1',
+                    },
+                },
+            },
+            animation: {
+                'inside-out': 'inside-out 6s ease-in-out 3s forwards',
+            },
         },
     },
     plugins: [require('tailwind-scrollbar-hide')],

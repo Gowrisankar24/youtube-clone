@@ -54,7 +54,7 @@ export const Home = () => {
                 </div>
 
                 {/* rendering videos */}
-                <div className="pt-12 px-5 grid grid-cols-yt gap-x-3 gap-y-8">
+                <div className="pt-12 px-5 grid grid-cols-yt gap-x-3 gap-y-8 home-screen-scrollbar">
                     {videos?.length > 0 ? (
                         videos?.map(video => {
                             return (
