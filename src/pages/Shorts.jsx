@@ -103,7 +103,7 @@ export const Shorts = () => {
                 </div>
                 <div className="fixed right-5 top-[40%]">
                     <div
-                        className={`bg-yt-lightblack p-3 rounded-3xl cursor-pointer transition-opacity duration-500 ease-in-out hover:bg-gray-400 ${currentIndex > 1 ? 'visible opacity-100 translate-y-0' : 'opacity-0 invisible translate-y-[90px]'}`}
+                        className={`bg-yt-lightblack p-3 rounded-3xl cursor-pointer transition-opacity duration-500 ease-in-out hover:bg-gray-400 ${currentIndex > 0 ? 'visible opacity-100 translate-y-0' : 'opacity-0 invisible translate-y-[90px]'}`}
                         onClick={() => {
                             navigate(`/shorts/${shortsData[currentIndex - 1]?.id}`);
                         }}>
