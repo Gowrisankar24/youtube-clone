@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { HiMenu, HiSearch } from 'react-icons/hi';
 import { MdMicNone } from 'react-icons/md';
 import { BiVideoPlus } from 'react-icons/bi';
+import { FaRegUserCircle } from 'react-icons/fa';
 import { BsBell } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import logo from '../assests/yt-logo.png';
@@ -28,7 +29,7 @@ export const NavBar = () => {
     };
 
     return (
-        <>
+        <header className="sticky z-50">
             <div
                 className={`bg-yt-black h-14 flex items-center pl-5 pr-5 justify-between fixed w-full z-10`}>
                 <div className="flex justify-between items-center">
@@ -60,34 +61,34 @@ export const NavBar = () => {
                             />
                         </button>
                     </div>
-                    <div className="bg-yt-black  text-yt-white w-10 h-10 items-center flex justify-center rounded-full ml-2 hover:bg-yt-lightblack cursor-pointer">
+                    {/* <div className="bg-yt-black  text-yt-white w-10 h-10 items-center flex justify-center rounded-full ml-2 hover:bg-yt-lightblack cursor-pointer">
                         <MdMicNone size={23} className=" text-center" />
-                    </div>
+                    </div> */}
                 </div>
                 <div className="flex items-center justify-center">
-                    <div className=" flex flex-row  items-center">
-                        <div className=" mr-2 p-2 w-10 hover:bg-yt-lightblack rounded-full cursor-pointer">
+                    <div className="flex flex-row  items-center">
+                        {/* <div className=" mr-2 p-2 w-10 hover:bg-yt-lightblack rounded-full cursor-pointer">
                             <BiVideoPlus size={25} className=" text-yt-white text-center" />
                         </div>
                         <div className="mx-2 p-2 w-10 hover:bg-yt-lightblack rounded-full cursor-pointer">
                             <BsBell size={19} className=" text-yt-white text-center" />
-                        </div>
-                        <div className="mx-2 items-center cursor-pointer">
+                        </div> */}
+                        <div className="me-1 items-center cursor-pointer">
                             {!userClick ? (
-                                <>
+                                <div>
                                     <button
-                                        className=" bg-yt-orange rounded-md  py-1 px-4 text-yt-white"
+                                        className="flex flex-row justify-center text-center bg-transparent border-[1px] border-slate-400 rounded-lg text-yt-white p-2"
                                         onClick={handleClick}>
-                                        Sign In
+                                        <FaRegUserCircle className="text-lg me-1 mt-1" /> Sign In
                                     </button>
-                                </>
+                                </div>
                             ) : (
                                 <>
                                     <img
                                         src={userClick?.photoURL}
                                         alt={userClick?.displayName}
                                         onClick={handlelogout}
-                                        className=" object-contain rounded-full text-center cursor-pointer w-10 h-10"
+                                        className="object-contain rounded-full text-center cursor-pointer w-10 h-10"
                                     />
                                 </>
                             )}
@@ -98,6 +99,6 @@ export const NavBar = () => {
             <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} className="sidebar">
                 <Sidebar setDrawerOpen={setDrawerOpen} />
             </Drawer>
-        </>
+        </header>
     );
 };

@@ -18,6 +18,9 @@ body {
 /* body::-webkit-scrollbar-track {
     @apply !bg-red-600;
 } */
+/* .main-content {
+    @apply bg-yt-black !overflow-y-auto overflow-x-hidden;
+} */
 @layer utilities {
     ::-webkit-scrollbar {
         @apply w-3;
@@ -67,7 +70,7 @@ body ::-webkit-scrollbar-track {
     @apply !bg-transparent;
 } */
 .dashboard-height {
-    @apply h-[100%];
+    @apply !h-[100%];
 }
 .backward-shorts {
     @apply duration-[6000ms] delay-150 ease-in-out;
@@ -80,4 +83,10 @@ body ::-webkit-scrollbar-track {
 }
 .sidebar-scroll {
     @apply !overflow-y-auto;
+}
+.shorts-icons-wrapper {
+    @apply flex flex-col gap-2 cursor-pointer;
+}
+.shorts-icons {
+    @apply bg-yt-lightblack p-2 border-2 border-transparent rounded-3xl font-semibold;
 }

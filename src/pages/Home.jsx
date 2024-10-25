@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { collection, onSnapshot, query } from 'firebase/firestore';
 import { CategoryItems } from '../components/sidebar/Data';
 import { auth, db } from '../Firebase';
@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../Reducer/reducer';
 import { VideosInfo } from '../components/sidebar/Videos';
 
-export const Home = () => {
+const Home = () => {
     const dispatch = useDispatch();
     const [activeCategory, setActiveCategory] = useState('All');
     const [videos, setVideos] = useState([]);
@@ -71,3 +71,5 @@ export const Home = () => {
         </>
     );
 };
+
+export default memo(Home);

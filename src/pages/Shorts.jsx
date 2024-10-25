@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { collection, onSnapshot, query } from 'firebase/firestore';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { db } from '../Firebase';
@@ -6,7 +6,7 @@ import { Skeleton } from '@mui/material';
 import { BiSolidDislike, BiSolidLike } from 'react-icons/bi';
 import { MdOutlineComment } from 'react-icons/md';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
-export const Shorts = () => {
+const Shorts = () => {
     const navigate = useNavigate();
     const { shortsId } = useParams();
     const location = useLocation();
@@ -52,73 +52,73 @@ export const Shorts = () => {
     if (!currentShort) {
         return <Skeleton animation="wave" width={120} height="90%" />;
     }
-    console.log('currentIndex', currentIndex);
     return (
-        <div className="w-full min-w-full max-w-full bg-yt-black">
-            <div className="pt-16">
-                <div className="flex justify-center items-center">
-                    <iframe
-                        width="315"
-                        height="678"
-                        src={`https://www.youtube.com/embed/${currentShort.link}?autoplay=1&mute=0&cc_load_policy=3&loop=1&type=channel&modestbranding=1&rel=0&enablejsapi=1`}
-                        title={currentShort?.name}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        id="player"
-                    />
-                    <div className="flex flex-col p-2">
-                        <div className="flex flex-col ms-3 p-2">
-                            <div className="bg-yt-lightblack p-3 rounded-full cursor-pointer">
-                                <BiSolidLike size={30} className="text-yt-white" />
+        <>
+            <div className="flex justify-center h-screen relative overflow-hidden">
+                <div className="flex justify-center">
+                    <div className="flex flex-row justify-center items-center max-w-full">
+                        <iframe
+                            width="30%"
+                            height="100%"
+                            src={`https://www.youtube.com/embed/${currentShort.link}?rel=0&modestbranding=1&autoplay=1&loop=0&autohide=0&controls=0&nologo=0&iv_load_policy=3`}
+                            allow="autoplay; encrypted-media; accelerometer;picture-in-picture; web-share"
+                            allowFullScreen
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            className="rounded-lg object-contain aspect-video max-w-full"
+                            style={{ maxHeight: '90vh' }}
+                        />
+                        <div className="flex flex-col relative left-5  top-10 gap-6 md:gap-3 xl:gap-2 2xl:gap-1">
+                            <div className="shorts-icons-wrapper">
+                                <span className="shorts-icons">
+                                    <BiSolidLike size={20} className="!text-yt-white" />
+                                </span>
+                                <span className="ms-1 !text-yt-white">{currentShort?.like}</span>
                             </div>
-                            <span className="text-yt-white relative top-2 left-4 font-semibold">
-                                {currentShort?.like}
-                            </span>
-                        </div>
-                        <div className="flex flex-col ms-3 p-2">
-                            <div className="bg-yt-lightblack p-3 rounded-full cursor-pointer">
-                                <BiSolidDislike size={30} className="text-yt-white" />
+                            <div className="shorts-icons-wrapper">
+                                <span className="shorts-icons">
+                                    <BiSolidDislike size={20} className="!text-yt-white" />
+                                </span>
+                                <span className="ms-1 !text-yt-white">{currentShort?.dislike}</span>
                             </div>
-                            <span className="text-yt-white relative top-2 left-4 font-semibold">
-                                {currentShort?.dislike}
-                            </span>
-                        </div>
-                        <div className="flex flex-col ms-3 p-2">
-                            <div className="bg-yt-lightblack p-3 rounded-full cursor-pointer">
-                                <MdOutlineComment size={30} className="text-yt-white" />
+                            <div className="shorts-icons-wrapper">
+                                <span className="shorts-icons">
+                                    <MdOutlineComment size={20} className="!text-yt-white" />
+                                </span>
+                                <span className="ms-1 !text-yt-white">
+                                    {currentShort?.comments}
+                                </span>
                             </div>
-                            <span className="text-yt-white relative top-2 left-4 font-semibold">
-                                {currentShort?.comments}
-                            </span>
-                        </div>
-                        <div className="flex flex-col ms-3 p-2 cursor-pointer">
-                            <img
-                                src={currentShort?.logo}
-                                alt={currentShort?.imgname}
-                                className="rounded-2xl"
-                                width={50}
-                            />
+                            <div className="shorts-icons-wrapper">
+                                <img
+                                    src={currentShort?.logo}
+                                    alt={currentShort?.imgname}
+                                    className="rounded-full"
+                                    width={50}
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="fixed right-5 top-[40%]">
-                    <div
-                        className={`bg-yt-lightblack p-3 rounded-3xl cursor-pointer transition-opacity duration-500 ease-in-out hover:bg-gray-400 ${currentIndex > 0 ? 'visible opacity-100 translate-y-0' : 'opacity-0 invisible translate-y-[90px]'}`}
-                        onClick={() => {
-                            navigate(`/shorts/${shortsData[currentIndex - 1]?.id}`);
-                        }}>
-                        <FaArrowUp size={20} color="white" />
-                    </div>
+                    <div className="fixed top-[40%] right-5">
+                        <div
+                            className={`bg-yt-lightblack p-3 rounded-3xl cursor-pointer transition-opacity duration-1000 ease-in-out hover:bg-gray-400 ${currentIndex > 0 ? 'visible opacity-100 translate-y-0' : 'opacity-0 invisible translate-y-[190px]'}`}
+                            onClick={() => {
+                                navigate(`/shorts/${shortsData[currentIndex - 1]?.id}`);
+                            }}>
+                            <FaArrowUp size={20} color="white" />
+                        </div>
 
-                    <div
-                        className="bg-yt-lightblack p-3 rounded-3xl cursor-pointer mt-2 hover:bg-gray-400"
-                        onClick={() => {
-                            navigate(`/shorts/${shortsData[currentIndex + 1]?.id}`);
-                        }}>
-                        <FaArrowDown size={20} color="white" />
+                        <div
+                            className="bg-yt-lightblack p-3 rounded-3xl cursor-pointer mt-2 hover:bg-gray-400"
+                            onClick={() => {
+                                navigate(`/shorts/${shortsData[currentIndex + 1]?.id}`);
+                            }}>
+                            <FaArrowDown size={20} color="white" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
+
+export default memo(Shorts);

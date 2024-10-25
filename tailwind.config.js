@@ -5,7 +5,7 @@ module.exports = {
         extend: {
             colors: {
                 'yt-black': '#000',
-                'yt-lightblack': '#717171',
+                'yt-lightblack': '#303030',
                 'yt-white': '#fff',
                 'yt-red': '#d91b0d',
                 'yt-lightpink': '#ed8c85',

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDoc, collection, doc, onSnapshot, query } from 'firebase/firestore';
@@ -15,7 +15,7 @@ import { CommentList } from '../components/CommentList';
 import { CategoryItems } from '../components/sidebar/Data';
 import { Recommended } from '../components/Recommended';
 
-export const Video = () => {
+const Video = () => {
     const dispatch = useDispatch();
     const [videos, setVideos] = useState([]);
     const [activeCategory, setActiveCategory] = useState(false);
@@ -24,6 +24,7 @@ export const Video = () => {
     const [data, setData] = useState(null);
     const { id } = useParams();
     const user = useSelector(getUser);
+    const [isSubscribed, setIsSubscribed] = useState(false);
 
     //id(video) router data
     useEffect(() => {
@@ -87,6 +88,16 @@ export const Video = () => {
         setComment('');
     };
 
+    //subscribe btn onlick
+    const handleSubscribe = () => {
+        setIsSubscribed(true);
+    };
+
+    //unsubscribe btn onlick
+    const handleUnSubscribe = () => {
+        setIsSubscribed(false);
+    };
+
     return (
         <div className="py-20 px-10 bg-yt-black flex flex-row h-full">
             <div className="left flex-1">
@@ -114,9 +125,20 @@ export const Video = () => {
                                 {data?.Subscribers} subscribers
                             </p>
                         </div>
-                        <button className="bg-yt-white px-4 py-2 rounded-full text-sm font-medium ml-3">
-                            Subscribe
-                        </button>
+                        {isSubscribed ? (
+                            <button
+                                className="bg-yt-white px-4 py-2 rounded-full text-sm font-medium ml-3"
+                                onClick={handleUnSubscribe}>
+                                Subscribed
+                            </button>
+                        ) : (
+                            <button
+                                className="bg-yt-white px-4 py-2 rounded-full text-sm font-medium ml-3"
+                                onClick={handleSubscribe}>
+                                Subscribe
+                            </button>
+                        )}
+
                         <div className="flex pl-28">
                             <div className="flex bg-yt-lightblack items-center rounded-2xl h-10 mx-1 hover:bg-yt-light-1">
                                 <div className="flex px-3 items-center border-r-2 border-r-yt-light-1 cursor-pointer">
@@ -242,3 +264,5 @@ export const Video = () => {
         </div>
     );
 };
+
+export default memo(Video);
