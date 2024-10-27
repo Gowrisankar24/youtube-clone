@@ -7,7 +7,7 @@
 }
 
 body {
-    @apply overflow-x-hidden;
+    @apply bg-yt-black overflow-x-hidden;
 }
 /* body::-webkit-scrollbar {
     @apply w-4;
@@ -89,4 +89,7 @@ body ::-webkit-scrollbar-track {
 }
 .shorts-icons {
     @apply bg-yt-lightblack p-2 border-2 border-transparent rounded-3xl font-semibold;
+}
+.text-size {
+    @apply text-[10px] sm:text-[12px] md:text-lg lg:text-2xl xl:text-2xl 2xl:text-3xl font-medium;
 }
