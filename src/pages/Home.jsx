@@ -4,14 +4,29 @@ import { CategoryItems } from '../components/sidebar/Data';
 import { auth, db } from '../Firebase';
 import { Link } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../Reducer/reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../reducer/reducer';
 import { VideosInfo } from '../components/sidebar/Videos';
 
 const Home = () => {
     const dispatch = useDispatch();
     const [activeCategory, setActiveCategory] = useState('All');
     const [videos, setVideos] = useState([]);
+    const [getSearchableVideos, setGetSearchableVideos] = useState([]);
+    const getSearchVideos = useSelector(state => state?.getSearchTextSlice?.text);
+
+    //user authentication
+    useEffect(() => {
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                dispatch(setUser(user));
+            } else {
+                dispatch(setUser(null));
+            }
+        });
+    }, [dispatch]);
+
+    //get videos list data from firebase store
     useEffect(() => {
         const getresp = query(collection(db, 'videos'));
         onSnapshot(getresp, snapShot => {
@@ -25,14 +40,17 @@ const Home = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        onAuthStateChanged(auth, user => {
-            if (user) {
-                dispatch(setUser(user));
-            } else {
-                dispatch(setUser(null));
-            }
-        });
-    }, [dispatch]);
+        setGetSearchableVideos(videos);
+    }, [videos]);
+
+    //Get Search input based videos
+    useEffect(() => {
+        const filteringVideos = videos?.filter(rec =>
+            rec?.name.toLowerCase().includes(getSearchVideos?.toLowerCase())
+        );
+        setGetSearchableVideos(filteringVideos);
+    }, [getSearchVideos]);
+
     return (
         <>
             <div className="w-full min-w-full max-w-full dashboard-height pt-16 bg-yt-black">
@@ -55,8 +73,8 @@ const Home = () => {
 
                 {/* rendering videos */}
                 <div className="pt-12 px-5 grid grid-cols-yt gap-x-3 gap-y-8 home-screen-scrollbar">
-                    {videos?.length > 0 ? (
-                        videos?.map(video => {
+                    {getSearchableVideos?.length > 0 ? (
+                        getSearchableVideos?.map(video => {
                             return (
                                 <Link to={`/videos/${video?.id}`} key={video?.id}>
                                     <VideosInfo {...video} />

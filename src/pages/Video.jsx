@@ -9,7 +9,7 @@ import { FaRegShareSquare } from 'react-icons/fa';
 import { IoMdDownload } from 'react-icons/io';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import { MdOutlineSort } from 'react-icons/md';
-import { getUser, setUser } from '../Reducer/reducer';
+import { getUser, setUser } from '../reducer/reducer';
 import { onAuthStateChanged } from 'firebase/auth';
 import { CommentList } from '../components/CommentList';
 import { CategoryItems } from '../components/sidebar/Data';

@@ -23,10 +23,10 @@ body {
 } */
 @layer utilities {
     ::-webkit-scrollbar {
-        @apply w-3;
+        @apply w-2;
     }
     ::-webkit-scrollbar-thumb {
-        @apply !bg-[#717171] rounded-xl;
+        @apply !bg-[#717171] rounded-sm;
     }
     ::-webkit-scrollbar-track {
         @apply !bg-yt-black;
